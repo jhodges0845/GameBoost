@@ -1,0 +1,89 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{BD4936E4-39F7-4AD0-A812-8E247E83ADFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{662B3E9A-26F9-43D0-8B33-433A2BDD453E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A2768660-A9FB-4B19-B690-50AABA536359}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Core", "GameBoost.Core\GameBoost.Core.csproj", "{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Rendering", "GameBoost.Rendering\GameBoost.Rendering.csproj", "{5BC14535-1164-416F-94C9-73068BA14B6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Physics", "GameBoost.Physics\GameBoost.Physics.csproj", "{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Core.Tests", "GameBoost.Core.Tests\GameBoost.Core.Tests.csproj", "{BCF005A5-01A5-406F-8021-2C413693E912}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Physics.Tests", "GameBoost.Physics.Tests\GameBoost.Physics.Tests.csproj", "{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Rendering.Tests", "GameBoost.Rendering.Tests\GameBoost.Rendering.Tests.csproj", "{DA582457-6AD3-434C-8CC6-88C23538EC1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongClone", "PongClone\PongClone.csproj", "{7404CF9D-3F2B-43B1-8303-C41A78B7938F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicsDemo", "PhysicsDemo\PhysicsDemo.csproj", "{71D3F55B-3288-489F-8985-55D04BA2157F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BC14535-1164-416F-94C9-73068BA14B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC14535-1164-416F-94C9-73068BA14B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC14535-1164-416F-94C9-73068BA14B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC14535-1164-416F-94C9-73068BA14B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCF005A5-01A5-406F-8021-2C413693E912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCF005A5-01A5-406F-8021-2C413693E912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCF005A5-01A5-406F-8021-2C413693E912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCF005A5-01A5-406F-8021-2C413693E912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA582457-6AD3-434C-8CC6-88C23538EC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA582457-6AD3-434C-8CC6-88C23538EC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA582457-6AD3-434C-8CC6-88C23538EC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA582457-6AD3-434C-8CC6-88C23538EC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7404CF9D-3F2B-43B1-8303-C41A78B7938F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7404CF9D-3F2B-43B1-8303-C41A78B7938F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7404CF9D-3F2B-43B1-8303-C41A78B7938F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7404CF9D-3F2B-43B1-8303-C41A78B7938F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D3F55B-3288-489F-8985-55D04BA2157F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D3F55B-3288-489F-8985-55D04BA2157F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337} = {BD4936E4-39F7-4AD0-A812-8E247E83ADFE}
+		{5BC14535-1164-416F-94C9-73068BA14B6F} = {BD4936E4-39F7-4AD0-A812-8E247E83ADFE}
+		{E825ACB3-158E-4B59-8AA2-6BEE9E762D28} = {BD4936E4-39F7-4AD0-A812-8E247E83ADFE}
+		{BCF005A5-01A5-406F-8021-2C413693E912} = {662B3E9A-26F9-43D0-8B33-433A2BDD453E}
+		{6BF51343-4889-4B94-AC5D-7BD481D5EEF4} = {662B3E9A-26F9-43D0-8B33-433A2BDD453E}
+		{DA582457-6AD3-434C-8CC6-88C23538EC1F} = {662B3E9A-26F9-43D0-8B33-433A2BDD453E}
+		{7404CF9D-3F2B-43B1-8303-C41A78B7938F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
+		{71D3F55B-3288-489F-8985-55D04BA2157F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E69FFBF-CF83-4C58-9F34-C60A89D121C0}
+	EndGlobalSection
+EndGlobal
