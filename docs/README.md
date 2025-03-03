@@ -1,6 +1,6 @@
 # GameBoost
 
-![Build Status](https://github.com/jhodges0845/GameBoost/actions/workflows/build.yml/badge.svg)
+![Build Status](https://github.com/jhodges0845/GameBoost/actions/workflows/build.yaml/badge.svg)
 
 **GameBoost** is an open-source .NET library designed to accelerate game development by providing lightweight, modular utilities. Whether you're an indie developer, part of an AA team, or working at a AAA studio, GameBoost offers tools to streamline common tasks without forcing you into a full engine. Our mission is to support the game industry with free, community-driven solutions—no profits, just progress.
 
