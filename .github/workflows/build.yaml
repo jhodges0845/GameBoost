@@ -10,8 +10,9 @@ on:
 jobs:
   build:
     # Use Ubuntu for speed; Windows works too if you need it
+    #runs-on: ubuntu-latest
     runs-on: ubuntu-latest
-
+    
     steps:
     # Checkout the repository code
     - name: Checkout code

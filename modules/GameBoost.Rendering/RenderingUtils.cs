@@ -16,11 +16,27 @@ namespace GameBoost.Rendering
         }
 
         /// <summary>
+        /// Converts world coordinates to screen coordinates using a Camera2D.
+        /// </summary>
+        public static Vector2D WorldToScreen(Vector2D worldPos, Camera2D camera)
+        {
+            return (worldPos - camera.Position) * camera.Scale + new Vector2D(camera.Width / 2f, camera.Height / 2f);
+        }
+
+        /// <summary>
         /// Converts world coordinates to screen coordinates given a camera position and scale.
         /// </summary>
         public static Vector2D WorldToScreen(Vector2D worldPos, Vector2D cameraPos, float cameraScale)
         {
             return (worldPos * cameraScale) + cameraPos;
+        }
+
+        /// <summary>
+        /// Converts screen coordinates to world coordinates using a Camera2D.
+        /// </summary>
+        public static Vector2D ScreenToWorld(Vector2D screenPos, Camera2D camera)
+        {
+            return (screenPos - new Vector2D(camera.Width / 2f, camera.Height / 2f)) / camera.Scale + camera.Position;
         }
 
         /// <summary>

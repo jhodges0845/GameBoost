@@ -5,6 +5,17 @@ All notable changes to **GameBoost** will be documented in this file.
 
 - No unreleased changes yet.
 
+## [0.3.0] - 2025.03.08
+
+### Added
+- `Camera2D` struct for 2D camera management with movement, zoom, and visibility checking.
+- `SpriteBatch` class for efficient sprite batching with camera-based culling.
+- Updated `RenderingUtils` with camera-specific coordinate conversions.
+- NUnit tests for `Camera2D` and `SpriteBatch`.
+
+### Modified
+- Workflow file to use `self-hosted` instead of `ubuntu-latest`
+
 ## [0.2.0] - 2025-03-08
 
 ### Added
