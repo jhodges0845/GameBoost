@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\GameBoost.Core\GameBoost.Core.csproj" />
+    <ProjectReference Include="..\..\modules\GameBoost.Physics\GameBoost.Physics.csproj" />
+    <ProjectReference Include="..\..\modules\GameBoost.Rendering\GameBoost.Rendering.csproj" />
+  </ItemGroup>
+
 </Project>
