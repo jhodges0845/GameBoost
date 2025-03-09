@@ -13,18 +13,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\modules\GameBoost.Core\GameBoost.Core.csproj" />
-    <ProjectReference Include="..\..\modules\GameBoost.Physics\GameBoost.Physics.csproj" />
     <ProjectReference Include="..\..\modules\GameBoost.Rendering\GameBoost.Rendering.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="font.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="PongBall.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="PongPaddle.png">
+    <None Update="sample.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

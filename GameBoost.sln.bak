@@ -9,28 +9,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{00BC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{662B3E9A-26F9-43D0-8B33-433A2BDD453E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Core", "modules\GameBoost.Core\GameBoost.Core.csproj", "{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Core", "modules\GameBoost.Core\GameBoost.Core.csproj", "{EE5C7FD3-20FA-4046-96AD-CA3EA12A8337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Rendering", "modules\GameBoost.Rendering\GameBoost.Rendering.csproj", "{5BC14535-1164-416F-94C9-73068BA14B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Rendering", "modules\GameBoost.Rendering\GameBoost.Rendering.csproj", "{5BC14535-1164-416F-94C9-73068BA14B6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Physics", "modules\GameBoost.Physics\GameBoost.Physics.csproj", "{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Physics", "modules\GameBoost.Physics\GameBoost.Physics.csproj", "{E825ACB3-158E-4B59-8AA2-6BEE9E762D28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Core.Tests", "tests\GameBoost.Core.Tests\GameBoost.Core.Tests.csproj", "{BCF005A5-01A5-406F-8021-2C413693E912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Core.Tests", "tests\GameBoost.Core.Tests\GameBoost.Core.Tests.csproj", "{BCF005A5-01A5-406F-8021-2C413693E912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Physics.Tests", "tests\GameBoost.Physics.Tests\GameBoost.Physics.Tests.csproj", "{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Physics.Tests", "tests\GameBoost.Physics.Tests\GameBoost.Physics.Tests.csproj", "{6BF51343-4889-4B94-AC5D-7BD481D5EEF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBoost.Rendering.Tests", "tests\GameBoost.Rendering.Tests\GameBoost.Rendering.Tests.csproj", "{DA582457-6AD3-434C-8CC6-88C23538EC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBoost.Rendering.Tests", "tests\GameBoost.Rendering.Tests\GameBoost.Rendering.Tests.csproj", "{DA582457-6AD3-434C-8CC6-88C23538EC1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongClone", "samples\PongClone\PongClone.csproj", "{7404CF9D-3F2B-43B1-8303-C41A78B7938F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PongClone", "samples\PongClone\PongClone.csproj", "{7404CF9D-3F2B-43B1-8303-C41A78B7938F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicsDemo", "samples\PhysicsDemo\PhysicsDemo.csproj", "{71D3F55B-3288-489F-8985-55D04BA2157F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhysicsDemo", "samples\PhysicsDemo\PhysicsDemo.csproj", "{71D3F55B-3288-489F-8985-55D04BA2157F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51A8A79C-CDC2-4F8E-A426-E76BF180CEB0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3842A5E0-7C6A-4051-8B2B-2266BDEA2AA6}"
 	ProjectSection(SolutionItems) = preProject
-		CHANGELOG.md = CHANGELOG.md
+		docs\CHANGELOG.md = docs\CHANGELOG.md
 		global.json = global.json
-		README.md = README.md
+		docs\README.md = docs\README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureDemo", "TextureDemo\TextureDemo.csproj", "{F4059958-6F1D-4B71-A002-777C9E8F5CE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,10 @@ Global
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{DA582457-6AD3-434C-8CC6-88C23538EC1F} = {662B3E9A-26F9-43D0-8B33-433A2BDD453E}
 		{7404CF9D-3F2B-43B1-8303-C41A78B7938F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
 		{71D3F55B-3288-489F-8985-55D04BA2157F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E69FFBF-CF83-4C58-9F34-C60A89D121C0}

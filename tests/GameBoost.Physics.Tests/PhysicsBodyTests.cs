@@ -27,8 +27,9 @@ public class PhysicsBodyTests
         var body = new PhysicsBody(new Vector2D(0f, 0f), new Vector2D(200f, 300f), 1f, 1f, 1f);
         var moved = body.Move(1f);
 
-        Assert.That(moved.Position.X, Is.EqualTo(100f).Within(0.000001));
-        Assert.That(moved.Position.Y, Is.EqualTo(100f).Within(0.000001));
+        // Expect clamped position within bounds (799, 599) for Width=1, Height=1
+        Assert.That(moved.Position.X, Is.EqualTo(200f).Within(0.000001)); // Within 0 to 799
+        Assert.That(moved.Position.Y, Is.EqualTo(300f).Within(0.000001)); // Within 0 to 599
     }
 
     [Test]

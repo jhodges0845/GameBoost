@@ -1,167 +1,154 @@
 ﻿using GameBoost.Core;
 using GameBoost.Physics;
 using GameBoost.Rendering;
+using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+using TextureDemo;
 
-// Configuration constants
-const int GridWidth = 40;
-const int GridHeight = 20;
-const float DeltaTime = 0.016f; // ~60 FPS for smoother movement
-Vector2D Gravity = new Vector2D(0f, 0f); // No gravity for Pong
 
-// Game objects
-PhysicsBody ball;
-Sprite paddle1, paddle2, groundSprite;
-int player1Score = 0, player2Score = 0;
+var context = new SfmlRenderContext(800, 600, "Pong Demo");
+var ballTexture = new SfmlTexture("PongBall.png");
+var paddleTexture = new SfmlTexture("PongPaddle.png");
 
-// Initialize game objects
-void InitializeGameObjects()
+var ball = new PhysicsBody(new Vector2D(400, 300), new Vector2D(100, 75), 1f, 16, 16);
+var leftPaddle = new PhysicsBody(new Vector2D(50, 250), Vector2D.Zero, 1f, 16, 64);
+var rightPaddle = new PhysicsBody(new Vector2D(734, 250), Vector2D.Zero, 1f, 16, 64);
+
+var ballRender = new RenderableObject(ballTexture, ball.Position);
+var leftPaddleRender = new RenderableObject(paddleTexture, leftPaddle.Position);
+var rightPaddleRender = new RenderableObject(paddleTexture, rightPaddle.Position);
+
+int player1Score = 0;
+int player2Score = 0;
+var font = new Font("font.ttf");
+var scoreText = new Text($"Player 1: {player1Score}  Player 2: {player2Score}", font, 24)
 {
-    ball = new PhysicsBody(new Vector2D(20f, 10f), new Vector2D(20f, 8f), 1f, 2f, 2f); // Initial ball velocity
-    paddle1 = new Sprite(new Vector2D(5f, 10f), 2f, 5f, "paddle"); // Left paddle
-    paddle2 = new Sprite(new Vector2D(35f, 10f), 2f, 5f, "paddle"); // Right paddle
-    groundSprite = new Sprite(new Vector2D(20f, 2f), 40f, 1f, "ground"); // Full-width ground (for boundary)
+    Position = new SFML.System.Vector2f(300, 10),
+    FillColor = Color.White
+};
+
+float ballSpeedMultiplier = 1f;
+var clock = new Clock();
+float deltaTime;
+float baseSpeed = 100f;
+float paddleSpeed = 400f;
+bool hasCollidedThisFrame = false;
+float bounceOffset = 2f; // Increased offset to prevent re-collision
+int framesSinceCollision = 0; // Delay collision checks after bounce
+const int collisionDelayFrames = 1; // Skip collision check for 1 frame
+
+(int player1Score, int player2Score, Vector2D ballPosition, Vector2D ballVelocity, float ballSpeedMultiplier) UpdateScoring(PhysicsBody ball, int player1Score, int player2Score, float ballSpeedMultiplier)
+{
+    if (ball.Position.X <= 0)
+    {
+        player2Score++;
+        return (player1Score, player2Score, new Vector2D(400, 300), new Vector2D(100, 75), 1f);
+    }
+    else if (ball.Position.X + ball.Width >= 800)
+    {
+        player1Score++;
+        return (player1Score, player2Score, new Vector2D(400, 300), new Vector2D(-100, 75), 1f);
+    }
+    return (player1Score, player2Score, ball.Position, ball.Velocity, ballSpeedMultiplier);
 }
 
-// Handle input
-void HandleInput()
+
+while (context.IsActive())
 {
-    if (Console.KeyAvailable)
+    deltaTime = Math.Min(clock.Restart().AsSeconds(), 1f / 30f);
+
+    // Paddle controls
+    if (Keyboard.IsKeyPressed(Keyboard.Key.W)) leftPaddle.Velocity = new Vector2D(0, -paddleSpeed);
+    else if (Keyboard.IsKeyPressed(Keyboard.Key.S)) leftPaddle.Velocity = new Vector2D(0, paddleSpeed);
+    else leftPaddle.Velocity = Vector2D.Zero;
+
+    if (Keyboard.IsKeyPressed(Keyboard.Key.Up)) rightPaddle.Velocity = new Vector2D(0, -paddleSpeed);
+    else if (Keyboard.IsKeyPressed(Keyboard.Key.Down)) rightPaddle.Velocity = new Vector2D(0, paddleSpeed);
+    else rightPaddle.Velocity = Vector2D.Zero;
+
+    // Move paddles
+    leftPaddle = leftPaddle.Move(deltaTime);
+    rightPaddle = rightPaddle.Move(deltaTime);
+
+    // Predict ball movement and handle collisions
+    Vector2D ballDisplacement = ball.Velocity * deltaTime;
+    Vector2D newBallPosition = ball.Position + ballDisplacement;
+    PhysicsBody tempBall = ball;
+    tempBall.Position = newBallPosition;
+
+    if (framesSinceCollision <= collisionDelayFrames)
     {
-        var key = Console.ReadKey(true).Key;
-        float step = 1f;
-        switch (key)
+        framesSinceCollision++;
+    }
+    else
+    {
+        if (tempBall.CollidesWith(leftPaddle) && Vector2D.Dot(ball.Velocity, new Vector2D(-1, 0)) > 0) // Moving toward left paddle
         {
-            case ConsoleKey.UpArrow: paddle1.Position = new Vector2D(paddle1.Position.X, Math.Max(2.5f, paddle1.Position.Y + step)); break; // Up increases Y
-            case ConsoleKey.DownArrow: paddle1.Position = new Vector2D(paddle1.Position.X, Math.Min(17.5f, paddle1.Position.Y - step)); break; // Down decreases Y
-            case ConsoleKey.W: paddle2.Position = new Vector2D(paddle2.Position.X, Math.Max(2.5f, paddle2.Position.Y + step)); break; // W increases Y
-            case ConsoleKey.S: paddle2.Position = new Vector2D(paddle2.Position.X, Math.Min(17.5f, paddle2.Position.Y - step)); break; // S decreases Y
+            if (!hasCollidedThisFrame)
+            {
+                ballSpeedMultiplier += 0.1f;
+                Vector2D direction = new Vector2D(Math.Abs(ball.Velocity.X), ball.Velocity.Y).Normalized();
+                ball.Velocity = direction * baseSpeed * ballSpeedMultiplier;
+
+                // Position correction along bounce direction
+                ball.Position = new Vector2D(leftPaddle.Position.X + leftPaddle.Width + bounceOffset, ball.Position.Y);
+
+                hasCollidedThisFrame = true;
+                framesSinceCollision = 0;
+                Console.WriteLine($"Left Paddle Hit! Multiplier: {ballSpeedMultiplier}, Velocity: ({ball.Velocity.X}, {ball.Velocity.Y}), Position: ({ball.Position.X}, {ball.Position.Y})");
+            }
+        }
+        else if (tempBall.CollidesWith(rightPaddle) && Vector2D.Dot(ball.Velocity, new Vector2D(1, 0)) > 0) // Moving toward right paddle
+        {
+            if (!hasCollidedThisFrame)
+            {
+                ballSpeedMultiplier += 0.15f;
+                Vector2D direction = new Vector2D(-Math.Abs(ball.Velocity.X), ball.Velocity.Y).Normalized();
+                ball.Velocity = direction * baseSpeed * ballSpeedMultiplier;
+
+                // Position correction along bounce direction
+                ball.Position = new Vector2D(rightPaddle.Position.X - ball.Width - bounceOffset, ball.Position.Y);
+
+                hasCollidedThisFrame = true;
+                framesSinceCollision = 0;
+                Console.WriteLine($"Right Paddle Hit! Multiplier: {ballSpeedMultiplier}, Velocity: ({ball.Velocity.X}, {ball.Velocity.Y}), Position: ({ball.Position.X}, {ball.Position.Y})");
+            }
+        }
+        else
+        {
+            hasCollidedThisFrame = false;
         }
     }
-}
 
-// Update physics of the ball
-void UpdatePhysics()
-{
-    float startY = ball.Position.Y;
-    float velocityY = ball.Velocity.Y;
+    // Apply movement if no immediate re-collision
+    if (!hasCollidedThisFrame)
+    {
+        ball = ball.Move(deltaTime);
+    }
 
-    // Apply velocity (no gravity)
-    velocityY += Gravity.Y * DeltaTime; // Gravity is 0, so no effect
-    float endY = startY + ball.Velocity.Y * DeltaTime;
-    float endX = ball.Position.X + ball.Velocity.X * DeltaTime;
-
-    // Wall collisions (top/bottom)
-    if (endY + ball.Height / 2f >= GridHeight - 1 || endY - ball.Height / 2f <= 0)
+    // Collision with top and bottom walls
+    if (ball.Position.Y <= 0 || ball.Position.Y + ball.Height >= 600)
     {
         ball.Velocity = new Vector2D(ball.Velocity.X, -ball.Velocity.Y);
-        endY = Math.Clamp(endY, ball.Height / 2f, GridHeight - 1 - ball.Height / 2f);
-    }
-
-    // Paddle collisions (simplified)
-    float ballLeft = endX - ball.Width / 2f;
-    float ballRight = endX + ball.Width / 2f;
-    float paddle1Right = paddle1.Position.X + paddle1.Width / 2f;
-    float paddle2Left = paddle2.Position.X - paddle2.Width / 2f;
-    if (ballLeft <= paddle1Right && ball.Position.Y >= paddle1.Position.Y - paddle1.Height / 2f && ball.Position.Y <= paddle1.Position.Y + paddle1.Height / 2f)
-    {
-        ball.Velocity = new Vector2D(-ball.Velocity.X, ball.Velocity.Y); // Bounce off paddle1
-        endX = paddle1Right + ball.Width / 2f + 0.1f; // Prevent sticking
-    }
-    else if (ballRight >= paddle2Left && ball.Position.Y >= paddle2.Position.Y - paddle2.Height / 2f && ball.Position.Y <= paddle2.Position.Y + paddle2.Height / 2f)
-    {
-        ball.Velocity = new Vector2D(-ball.Velocity.X, ball.Velocity.Y); // Bounce off paddle2
-        endX = paddle2Left - ball.Width / 2f - 0.1f; // Prevent sticking
     }
 
     // Scoring
-    if (endX + ball.Width / 2f < 0)
-    {
-        player2Score++;
-        ball.Position = new Vector2D(20f, 10f); // Reset ball
-        ball.Velocity = new Vector2D(5f, 2f);   // Reset velocity
-    }
-    else if (endX - ball.Width / 2f > GridWidth)
-    {
-        player1Score++;
-        ball.Position = new Vector2D(20f, 10f); // Reset ball
-        ball.Velocity = new Vector2D(-5f, 2f);  // Reset velocity
-    }
+    (player1Score, player2Score, ball.Position, ball.Velocity, ballSpeedMultiplier) = UpdateScoring(ball, player1Score, player2Score, ballSpeedMultiplier);
 
-    ball.Position = new Vector2D(endX, endY);
-}
 
-// Render the current frame
-void RenderFrame()
-{
-    // Move cursor to top-left to overwrite previous frame
-    Console.SetCursorPosition(0, 0);
+    scoreText.DisplayedString = $"Player 1: {player1Score}  Player 2: {player2Score}";
 
-    // Build the grid as a string to write all at once
-    char[,] grid = new char[GridHeight, GridWidth];
-    for (int y = 0; y < GridHeight; y++)
-        for (int x = 0; x < GridWidth; x++)
-            grid[y, x] = '.';
+    ballRender.Position = ball.Position;
+    leftPaddleRender.Position = leftPaddle.Position;
+    rightPaddleRender.Position = rightPaddle.Position;
 
-    // Draw ball
-    Vector2D ballScreenPos = RenderingUtils.WorldToScreen(ball.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-    int ballScreenX = (int)Math.Round(ballScreenPos.X);
-    int ballScreenY = (int)Math.Round(GridHeight - 1 - ballScreenPos.Y);
-    int ballWidth = (int)ball.Width;
-    int ballHeight = (int)ball.Height;
-    for (int dy = 0; dy < ballHeight; dy++)
-        for (int dx = 0; dx < ballWidth; dx++)
-            if (ballScreenX + dx >= 0 && ballScreenX + dx < GridWidth && ballScreenY + dy >= 0 && ballScreenY + dy < GridHeight)
-                grid[ballScreenY + dy, ballScreenX + dx] = 'O'; // Ball as 'O'
-
-    // Draw paddles
-    Vector2D paddle1ScreenPos = RenderingUtils.WorldToScreen(paddle1.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-    Vector2D paddle2ScreenPos = RenderingUtils.WorldToScreen(paddle2.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-    int paddle1ScreenX = (int)Math.Round(paddle1ScreenPos.X);
-    int paddle1ScreenY = (int)Math.Round(GridHeight - 1 - paddle1ScreenPos.Y);
-    int paddle2ScreenX = (int)Math.Round(paddle2ScreenPos.X);
-    int paddle2ScreenY = (int)Math.Round(GridHeight - 1 - paddle2ScreenPos.Y);
-    int paddleWidth = (int)paddle1.Width;
-    int paddleHeight = (int)paddle1.Height;
-    for (int dy = 0; dy < paddleHeight; dy++)
-        for (int dx = 0; dx < paddleWidth; dx++)
-        {
-            if (paddle1ScreenX + dx >= 0 && paddle1ScreenX + dx < GridWidth && paddle1ScreenY + dy >= 0 && paddle1ScreenY + dy < GridHeight)
-                grid[paddle1ScreenY + dy, paddle1ScreenX + dx] = '|'; // Paddle 1
-            if (paddle2ScreenX + dx >= 0 && paddle2ScreenX + dx < GridWidth && paddle2ScreenY + dy >= 0 && paddle2ScreenY + dy < GridHeight)
-                grid[paddle2ScreenY + dy, paddle2ScreenX + dx] = '|'; // Paddle 2
-        }
-
-    //// Draw ground (as boundary)
-    //Vector2D groundScreenPos = RenderingUtils.WorldToScreen(groundSprite.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-    //int groundScreenY = (int)Math.Round(GridHeight - 1 - groundScreenPos.Y);
-    //for (int dx = 0; dx < GridWidth; dx++)
-    //    grid[groundScreenY, dx] = '=';
-
-    // Display scores
-    Console.WriteLine($"Player 1: {player1Score}  Player 2: {player2Score}");
-    Console.WriteLine("\nSimple Graphics Window (40x20 grid)");
-
-    // Draw the grid
-    for (int y = 0; y < GridHeight; y++)
-    {
-        for (int x = 0; x < GridWidth; x++)
-            Console.Write(grid[y, x]);
-        Console.WriteLine();
-    }
-
-    // Pad with empty lines to ensure consistent overwrite
-    for (int i = 0; i < 5; i++) // Buffer to prevent scrolling
-        Console.WriteLine(new string(' ', GridWidth));
+    context.Clear(0.2f, 0.3f, 0.3f, 1.0f);
+    ballRender.Render(context);
+    leftPaddleRender.Render(context);
+    rightPaddleRender.Render(context);
+    context.DrawText(scoreText);
+    context.Display();
 }
 
 
-// Main game loop
-InitializeGameObjects();
-
-while (true)
-{
-    HandleInput();
-    UpdatePhysics();
-    RenderFrame();
-    System.Threading.Thread.Sleep((int)(DeltaTime * 1000)); // Sync with deltaTime
-}

@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureDemo", "samples\TextureDemo\TextureDemo.csproj", "{F4059958-6F1D-4B71-A002-777C9E8F5CE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71D3F55B-3288-489F-8985-55D04BA2157F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{DA582457-6AD3-434C-8CC6-88C23538EC1F} = {662B3E9A-26F9-43D0-8B33-433A2BDD453E}
 		{7404CF9D-3F2B-43B1-8303-C41A78B7938F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
 		{71D3F55B-3288-489F-8985-55D04BA2157F} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
+		{F4059958-6F1D-4B71-A002-777C9E8F5CE0} = {00BCD42C-F4EE-4D23-BCC6-C18E45733BD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E69FFBF-CF83-4C58-9F34-C60A89D121C0}
