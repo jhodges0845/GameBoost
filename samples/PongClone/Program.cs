@@ -1,13 +1,13 @@
 ﻿using GameBoost.Core;
 using GameBoost.Physics;
 using GameBoost.Rendering;
+using PongClone;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using TextureDemo;
 
-
-var context = new SfmlRenderContext(800, 600, "Pong Demo");
+IScreen screen = new SfmlScreen(800, 600);
+var context = new SfmlRenderContext((uint)screen.Width, (uint)screen.Height, "Pong Demo");
 var ballTexture = new SfmlTexture("PongBall.png");
 var paddleTexture = new SfmlTexture("PongPaddle.png");
 
@@ -68,8 +68,8 @@ while (context.IsActive())
     else rightPaddle.Velocity = Vector2D.Zero;
 
     // Move paddles
-    leftPaddle = leftPaddle.Move(deltaTime);
-    rightPaddle = rightPaddle.Move(deltaTime);
+    leftPaddle = leftPaddle.Move(deltaTime, 0f, screen.Width, 0f, screen.Height);
+    rightPaddle = rightPaddle.Move(deltaTime, 0f, screen.Width, 0f, screen.Height);
 
     // Predict ball movement and handle collisions
     Vector2D ballDisplacement = ball.Velocity * deltaTime;
@@ -124,7 +124,7 @@ while (context.IsActive())
     // Apply movement if no immediate re-collision
     if (!hasCollidedThisFrame)
     {
-        ball = ball.Move(deltaTime);
+        ball = ball.Move(deltaTime, 0f, screen.Width, 0f, screen.Height);
     }
 
     // Collision with top and bottom walls

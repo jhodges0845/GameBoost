@@ -1,9 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
-using Color = SFML.Graphics.Color;
-using Sprite = SFML.Graphics.Sprite;
 
-namespace TextureDemo
+namespace PongClone
 {
     public class SfmlRenderContext : GameBoost.Rendering.IRenderContext
     {

@@ -1,6 +1,6 @@
 ﻿using SFML.Graphics;
 
-namespace TextureDemo
+namespace PhysicsDemo
 {
     public class SfmlTexture : GameBoost.Rendering.ITexture
     {

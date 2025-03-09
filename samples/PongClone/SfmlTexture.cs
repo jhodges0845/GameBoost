@@ -1,6 +1,6 @@
 ﻿using SFML.Graphics;
 
-namespace TextureDemo
+namespace PongClone
 {
     public class SfmlTexture : GameBoost.Rendering.ITexture
     {
