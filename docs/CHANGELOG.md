@@ -5,6 +5,11 @@ All notable changes to **GameBoost** will be documented in this file.
 
 - Modifyed PhsyicsDemo to showcase Rendering methods added
 - Fixed Gravity in PhysicsBody.cs
+- Added Dot method in Vector2D to handle determining direction of 2 vector2Ds
+- Added TextureDemo to support rendering Textures.
+- replaced pong demo to use new Texture logic instead of grid console.
+- Modified Move method in PhysicsBody to fix issue when testing with PongDemo. 
+- Fixed Test for Physics to handle the changes to Move.
 
 ## [0.3.0] - 2025.03.08
 

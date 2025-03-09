@@ -18,6 +18,7 @@ public struct Vector2D
     public static Vector2D operator +(Vector2D a, Vector2D b) => new(a.X + b.X, a.Y + b.Y);
     public static Vector2D operator -(Vector2D a, Vector2D b) => new(a.X - b.X, a.Y - b.Y);
     public static Vector2D operator *(Vector2D a, float scalar) => new(a.X * scalar, a.Y * scalar);
+    public static Vector2D operator *(float scalar ,Vector2D a) => new(a.X * scalar, a.Y * scalar);
 
     public static Vector2D operator /(Vector2D a, float scalar)
     {
@@ -30,5 +31,9 @@ public struct Vector2D
     {
         float mag = Magnitude();
         return mag > 0 ? new Vector2D(X / mag, Y / mag) : this;
+    }
+    public static float Dot(Vector2D a, Vector2D b)
+    {
+        return a.X * b.X + a.Y * b.Y;
     }
 }
