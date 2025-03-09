@@ -1,28 +1,37 @@
 ﻿using GameBoost.Core;
 using GameBoost.Physics;
 using GameBoost.Rendering;
+using PhysicsDemo;
+using TextureDemo;
 
-
-const int GridWidth = 40;
-const int GridHeight = 20;
-const float DeltaTime = 0.33f; // Match refresh rate (~3 FPS, corrected from ~30 FPS)
+const float DeltaTime = 0.33f; // Match refresh rate (~3 FPS)
 Vector2D Gravity = new Vector2D(0f, -10f);
 
 // Game objects
- PhysicsBody box;
- Sprite boxSprite;
- Sprite groundSprite;
+PhysicsBody box;
+RenderableObject boxRender;
+RenderableObject groundRender;
+
+// Initialize render context and textures
+IRenderContext context = new SfmlRenderContext(800, 600, "Bouncing Box Demo");
+IScreen screen = new SfmlScreen(800, 600); // Match window size
+ITexture boxTexture = new SfmlTexture("Box.png"); // Ensure Box.png exists
+ITexture groundTexture = new SfmlTexture("Ground.png"); // Ensure Ground.png exists
 
 // Initialize game objects
 void InitializeGameObjects()
 {
-    box = new PhysicsBody(new Vector2D(20f, 15f), new Vector2D(0f, -5f), 1f, 2f, 2f); // Added initial downward velocity
-    groundSprite = new Sprite(new Vector2D(20f, 2f), 40f, 1f, "ground");
+    box = new PhysicsBody(new Vector2D(20f, 15f), new Vector2D(0f, -5f), 1f, 2f, 2f); // Position in world units (40x20 grid)
+    Vector2D boxScreenPos = screen.ConvertWorldToScreen(box.Position);
+    boxRender = new RenderableObject(boxTexture, boxScreenPos);
+
+    // Ground at Y=2 in world coordinates
+    Vector2D groundScreenPos = screen.ConvertWorldToScreen(new Vector2D(20f, 2f));
+    groundRender = new RenderableObject(groundTexture, groundScreenPos);
 }
 
 // Update physics of the box
-
-void UpdatePhysics()
+void UpdatePhysics(float groundHeight)
 {
     // Current position and velocity
     float startY = box.Position.Y;
@@ -36,7 +45,7 @@ void UpdatePhysics()
 
     // Ground collision check
     float boxBottom = endY - box.Height / 2f;
-    float groundTop = groundSprite.Position.Y + groundSprite.Height / 2f;
+    float groundTop = groundHeight + 0.5f; // Ground sprite height is 1f in world units
     if (boxBottom <= groundTop)
     {
         // Calculate time of impact within the frame
@@ -56,91 +65,42 @@ void UpdatePhysics()
         box.Position = new Vector2D(box.Position.X, endY);
         box.Velocity = new Vector2D(box.Velocity.X, velocityY);
     }
-
-    // Update boxSprite
-    boxSprite = new Sprite(box.Position, 2f, 2f, "box");
 }
 
-void HandleCollisions()
+// Handle ceiling collisions
+void HandleCollisions(float ceilingHeight)
 {
     // Ceiling collision
     float boxTop = box.Position.Y + box.Height / 2f;
-    float ceiling = GridHeight - 1;
-    if (boxTop >= ceiling)
+    if (boxTop >= ceilingHeight)
     {
         box.Velocity = new Vector2D(box.Velocity.X, -box.Velocity.Y * 0.5f);
-        box.Position = new Vector2D(box.Position.X, GridHeight - 1 - box.Height / 2f);
+        box.Position = new Vector2D(box.Position.X, ceilingHeight - box.Height / 2f);
     }
 }
 
 // Render the current frame
 void RenderFrame()
 {
-    Console.Clear();
+    // Update render positions using IScreen
+    Vector2D boxScreenPos = screen.ConvertWorldToScreen(box.Position);
+    boxRender.Position = boxScreenPos;
+    groundRender.Position = screen.ConvertWorldToScreen(new Vector2D(20f, 2f)); // Ground stays at Y=2
 
-    // Initialize the grid
-    char[,] grid = new char[GridHeight, GridWidth];
-    for (int y = 0; y < GridHeight; y++)
-        for (int x = 0; x < GridWidth; x++)
-            grid[y, x] = '.';
-
-    // Calculate screen positions
-    Vector2D boxScreenPos = RenderingUtils.WorldToScreen(boxSprite.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-    Vector2D groundScreenPos = RenderingUtils.WorldToScreen(groundSprite.Position, new Camera2D(new Vector2D(0f, 0f), 1f, GridWidth, GridHeight));
-
-    int screenX = (int)Math.Round(boxScreenPos.X);
-    int screenY = (int)Math.Round(GridHeight - 1 - boxScreenPos.Y);
-    int boxWidth = (int)boxSprite.Width;
-    int boxHeight = (int)boxSprite.Height;
-
-    int groundScreenX = (int)Math.Round(groundScreenPos.X);
-    int groundScreenY = (int)Math.Round(GridHeight - 1 - groundScreenPos.Y);
-    int groundWidth = (int)groundSprite.Width;
-    int groundHeight = (int)groundSprite.Height;
-
-    // Draw box
-    for (int dy = 0; dy < boxHeight; dy++)
-        for (int dx = 0; dx < boxWidth; dx++)
-        {
-            int gridX = screenX + dx;
-            int gridY = screenY + dy;
-            if (gridX >= 0 && gridX < GridWidth && gridY >= 0 && gridY < GridHeight)
-                grid[gridY, gridX] = 'B';
-        }
-
-    // Draw ground
-    for (int dx = 0; dx < groundWidth; dx++)
-    {
-        int gridX = dx;
-        int gridY = groundScreenY;
-        if (gridX >= 0 && gridX < GridWidth && gridY >= 0 && gridY < GridHeight)
-            grid[gridY, gridX] = '=';
-    }
-
-    // Print debug information
-    Console.WriteLine($"Box Position: ({box.Position.X:F1}, {box.Position.Y:F1}), Screen: ({screenX}, {screenY})");
-    Console.WriteLine($"Ground Position: ({groundSprite.Position.X:F1}, {groundSprite.Position.Y:F1}), Screen: ({groundScreenX}, {groundScreenY})");
-    Console.WriteLine($"DeltaTime: {DeltaTime}, Gravity: ({Gravity.X:F1}, {Gravity.Y:F1})");
-
-    // Draw the grid
-    Console.WriteLine("\nSimple Graphics Window (40x20 grid)");
-    for (int y = 0; y < GridHeight; y++)
-    {
-        for (int x = 0; x < GridWidth; x++)
-            Console.Write(grid[y, x]);
-        Console.WriteLine();
-    }
+    context.Clear(0.2f, 0.3f, 0.3f, 1.0f);
+    groundRender.Render(context);
+    boxRender.Render(context);
+    context.Display();
 }
 
-// Main game loop using top-level statements
+// Main game loop
 InitializeGameObjects();
 
-while (true)
+while (context.IsActive())
 {
-    UpdatePhysics();
-    HandleCollisions();
+    UpdatePhysics(2f); // Ground Y position in world units
+    HandleCollisions(19f); // Ceiling at GridHeight - 1 = 19 in world units
     RenderFrame();
     System.Threading.Thread.Sleep((int)(DeltaTime * 1000)); // Sync refresh with deltaTime
 }
-
 

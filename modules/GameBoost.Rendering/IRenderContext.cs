@@ -15,6 +15,9 @@
         /// </summary>
         void DrawTexture(ITexture texture, float x, float y);
 
+        /// <summary>
+        /// Draws text at a given postion).
+        /// </summary>
         void DrawText(object text); // Use object to keep it generic for now
 
         /// <summary>

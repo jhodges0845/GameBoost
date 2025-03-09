@@ -3,13 +3,26 @@
 All notable changes to **GameBoost** will be documented in this file.
 ## [Unreleased]
 
-- Modifyed PhsyicsDemo to showcase Rendering methods added
-- Fixed Gravity in PhysicsBody.cs
+
+## [0.4.0] - 2025-03-08
+
+### Added
+- Added IScreen to handle screen sizing for rendering
+- Updated summary to DrawText in IRenderContent
 - Added Dot method in Vector2D to handle determining direction of 2 vector2Ds
 - Added TextureDemo to support rendering Textures.
-- replaced pong demo to use new Texture logic instead of grid console.
-- Modified Move method in PhysicsBody to fix issue when testing with PongDemo. 
+
+### Modified
+- Modified PhysicsDemo to use new IRendering, ITexture, and IScreen
 - Fixed Test for Physics to handle the changes to Move.
+- Modified Move method in PhysicsBody to fix issue when testing with PongDemo. 
+- replaced pong demo to use new Texture logic instead of grid console.
+- Fixed Gravity in PhysicsBody.cs
+- Modifyed PhsyicsDemo to showcase Rendering methods added
+
+### Removed
+- Removed RenderContext to remove dependency to specifc versions of windows.
+
 
 ## [0.3.0] - 2025.03.08
 

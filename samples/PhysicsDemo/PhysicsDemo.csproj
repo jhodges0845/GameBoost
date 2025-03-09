@@ -8,9 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SFML.Net" Version="2.6.1" />
+    <PackageReference Include="SFML.Window" Version="2.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\modules\GameBoost.Core\GameBoost.Core.csproj" />
     <ProjectReference Include="..\..\modules\GameBoost.Physics\GameBoost.Physics.csproj" />
     <ProjectReference Include="..\..\modules\GameBoost.Rendering\GameBoost.Rendering.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="box.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

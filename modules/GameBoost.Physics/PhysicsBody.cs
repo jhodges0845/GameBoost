@@ -41,24 +41,6 @@ public struct PhysicsBody
         return result;
     }
 
-    //public PhysicsBody Move(float deltaTime, Vector2D gravity = default)
-    //{
-    //    PhysicsBody result = this;
-    //    // Use provided gravity or default to (0, -9.8f) if no significant gravity is passed
-    //    Vector2D effectiveGravity = gravity;//gravity.Y != 0 ? gravity : new Vector2D(0f, 0f); // Check Y component
-    //    // Apply gravity to velocity
-    //    result.Velocity += effectiveGravity * deltaTime;
-    //    // Update position
-    //    Vector2D displacement = result.Velocity * deltaTime;
-    //    result.Position += displacement;
-    //    // Optional clamp (commented out for now)
-    //    result.Position = new Vector2D(
-    //        MathUtils.Clamp(result.Position.X, -100f, 100f),
-    //        MathUtils.Clamp(result.Position.Y, -100f, 100f)
-    //    );
-    //    return result;
-    //}
-
     /// <summary>
     /// Checks for collision with another PhysicsBody using AABB.
     /// </summary>
