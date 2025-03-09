@@ -3,6 +3,14 @@
 All notable changes to **GameBoost** will be documented in this file.
 ## [Unreleased]
 
+### Added
+- Added paramters for Move in PhysicsBody2D to take in minX, maxX, minY, maxY to make this dynamic
+- Implemented SftmlScreen in samples that weren't using it.
+
+### Modified
+- Modified PhysicsBody to be PhysicsBody2D to handle 3D when implemented later.
+- Fixed where Sample project were calling the others to get Sfml classes.
+
 
 ## [0.4.0] - 2025-03-08
 

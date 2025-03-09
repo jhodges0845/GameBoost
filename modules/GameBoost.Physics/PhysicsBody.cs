@@ -29,14 +29,14 @@ public struct PhysicsBody
     /// <summary>
     /// Applies a velocity update based on time elapsed, including gravity.
     /// </summary>
-    public PhysicsBody Move(float deltaTime)
+    public PhysicsBody Move(float deltaTime, float minX, float maxX, float minY, float maxY)
     {
         PhysicsBody result = this;
         Vector2D displacement = Velocity * deltaTime;
         result.Position += displacement;
         result.Position = new Vector2D(
-            MathUtils.Clamp(result.Position.X, 0f, 800f - result.Width), // 800 - 16 = 784
-            MathUtils.Clamp(result.Position.Y, 0f, 600f - result.Height) // 600 - 64 = 536
+            MathUtils.Clamp(result.Position.X, minX, maxX - result.Width), // 800 - 16 = 784
+            MathUtils.Clamp(result.Position.Y, minY, maxY - result.Height) // 600 - 64 = 536
         );
         return result;
     }

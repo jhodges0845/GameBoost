@@ -2,7 +2,7 @@
 using GameBoost.Physics;
 using GameBoost.Rendering;
 using PhysicsDemo;
-using TextureDemo;
+//using TextureDemo;
 
 const float DeltaTime = 0.33f; // Match refresh rate (~3 FPS)
 Vector2D Gravity = new Vector2D(0f, -10f);
