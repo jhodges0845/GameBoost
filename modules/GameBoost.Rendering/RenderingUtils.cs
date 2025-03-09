@@ -20,7 +20,10 @@ namespace GameBoost.Rendering
         /// </summary>
         public static Vector2D WorldToScreen(Vector2D worldPos, Camera2D camera)
         {
-            return (worldPos - camera.Position) * camera.Scale + new Vector2D(camera.Width / 2f, camera.Height / 2f);
+            // Offset by camera position and center the viewport
+            Vector2D relativePos = worldPos - camera.Position;
+            // No scaling (camera.Scale = 1), just center the world position
+            return new Vector2D(relativePos.X, relativePos.Y);
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace GameBoost.Rendering
         /// </summary>
         public static Vector2D ScreenToWorld(Vector2D screenPos, Camera2D camera)
         {
-            return (screenPos - new Vector2D(camera.Width / 2f, camera.Height / 2f)) / camera.Scale + camera.Position;
+            return new Vector2D(screenPos.X + camera.Position.X, screenPos.Y + camera.Position.Y);
         }
 
         /// <summary>

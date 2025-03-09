@@ -56,5 +56,6 @@ namespace GameBoost.Rendering
                 _sprites[i] = sprite;
             }
         }
+
     }
 }

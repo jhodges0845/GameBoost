@@ -3,7 +3,8 @@
 All notable changes to **GameBoost** will be documented in this file.
 ## [Unreleased]
 
-- No unreleased changes yet.
+- Modifyed PhsyicsDemo to showcase Rendering methods added
+- Fixed Gravity in PhysicsBody.cs
 
 ## [0.3.0] - 2025.03.08
 
