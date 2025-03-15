@@ -7,47 +7,47 @@ namespace GameBoost.Rendering
     /// </summary>
     public static class RenderingUtils
     {
+        private static IMathUtils _mathUtils;
         /// <summary>
         /// Converts screen coordinates to world coordinates given a camera position and scale.
         /// </summary>
-        public static Vector2D ScreenToWorld(Vector2D screenPos, Vector2D cameraPos, float cameraScale)
+        public static IVector2D ScreenToWorld(IVector2D screenPos, IVector2D cameraPos, float cameraScale, IMathUtils mathUtils)
         {
-            return (screenPos - cameraPos) * (1f / cameraScale);
+            _mathUtils = mathUtils;
+            return (screenPos.Subtract( cameraPos)).Multiply((1f / cameraScale));
         }
 
         /// <summary>
         /// Converts world coordinates to screen coordinates using a Camera2D.
         /// </summary>
-        public static Vector2D WorldToScreen(Vector2D worldPos, Camera2D camera)
+        public static IVector2D WorldToScreen(IVector2D worldPos, Camera2D camera)
         {
             // Offset by camera position and center the viewport
-            Vector2D relativePos = worldPos - camera.Position;
-            // No scaling (camera.Scale = 1), just center the world position
-            return new Vector2D(relativePos.X, relativePos.Y);
+            return worldPos.Subtract(camera.Position);
         }
 
         /// <summary>
         /// Converts world coordinates to screen coordinates given a camera position and scale.
         /// </summary>
-        public static Vector2D WorldToScreen(Vector2D worldPos, Vector2D cameraPos, float cameraScale)
+        public static IVector2D WorldToScreen(IVector2D worldPos, IVector2D cameraPos, double cameraScale)
         {
-            return (worldPos * cameraScale) + cameraPos;
+            return (worldPos.Multiply( cameraScale)).Add( cameraPos);
         }
 
         /// <summary>
         /// Converts screen coordinates to world coordinates using a Camera2D.
         /// </summary>
-        public static Vector2D ScreenToWorld(Vector2D screenPos, Camera2D camera)
+        public static IVector2D ScreenToWorld(IVector2D screenPos, Camera2D camera)
         {
-            return new Vector2D(screenPos.X + camera.Position.X, screenPos.Y + camera.Position.Y);
+            return screenPos.Add(camera.Position);
         }
 
         /// <summary>
         /// Calculates the bounding box center of a sprite.
         /// </summary>
-        public static Vector2D GetSpriteCenter(Sprite sprite)
+        public static IVector2D GetSpriteCenter(Sprite sprite)
         {
-            return new Vector2D(sprite.Position.X + sprite.Width / 2f, sprite.Position.Y + sprite.Height / 2f);
+            return sprite.Center();
         }
     }
 }

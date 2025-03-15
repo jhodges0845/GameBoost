@@ -6,8 +6,9 @@ namespace GameBoost.Physics;
 /// <summary>
 /// Provides utility methods for common physics operations in 2D game development.
 /// </summary>
-public static class PhysicsUtils
+public class PhysicsUtils
 {
+    private static IMathUtils _utils = new MathUtils();
     /// <summary>
     /// Resolves a simple elastic collision between two bodies along the X-axis.
     /// Assumes equal mass for simplicity; use with caution in complex scenarios.
@@ -19,8 +20,8 @@ public static class PhysicsUtils
         // Swap velocities (elastic collision approximation)
         PhysicsBody resultA = a;
         PhysicsBody resultB = b;
-        resultA.Velocity = new Vector2D(b.Velocity.X, a.Velocity.Y);
-        resultB.Velocity = new Vector2D(a.Velocity.X, b.Velocity.Y);
+        resultA.Velocity = new Vector2D(b.Velocity.X, a.Velocity.Y, _utils);
+        resultB.Velocity = new Vector2D(a.Velocity.X, b.Velocity.Y, _utils);
 
         return (resultA, resultB);
     }

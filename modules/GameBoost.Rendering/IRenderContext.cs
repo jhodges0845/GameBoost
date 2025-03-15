@@ -8,12 +8,12 @@
         /// <summary>
         /// Clears the screen with a specified color (R, G, B, A).
         /// </summary>
-        void Clear(float r, float g, float b, float a);
+        void Clear(double r, double g, double b, double a);
 
         /// <summary>
         /// Draws a texture at a given position.
         /// </summary>
-        void DrawTexture(ITexture texture, float x, float y);
+        void DrawTexture(ITexture texture, double x, double y);
 
         /// <summary>
         /// Draws text at a given postion).

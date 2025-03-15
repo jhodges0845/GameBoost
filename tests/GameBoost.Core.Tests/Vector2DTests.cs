@@ -10,9 +10,9 @@ namespace GameBoost.Core.Tests
         [Test]
         public void Addition_ReturnsCorrectSum()
         {
-            var v1 = new Vector2D(1f, 2f);
-            var v2 = new Vector2D(3f, 4f);
-            var result = v1 + v2;
+            var v1 = new Vector2D(1f, 2f, new MathUtils());
+            var v2 = new Vector2D(3f, 4f, new MathUtils());
+            var result = v1.Add( v2);
 
             Assert.That(result.X, Is.EqualTo(4f));
             Assert.That(result.Y, Is.EqualTo(6f));
@@ -21,7 +21,7 @@ namespace GameBoost.Core.Tests
         [Test]
         public void Magnitude_CalculatesCorrectLength()
         {
-            var v = new Vector2D(3f, 4f); // 3-4-5 triangle
+            var v = new Vector2D(3f, 4f, new MathUtils()); // 3-4-5 triangle
             var magnitude = v.Magnitude();
 
             Assert.That(magnitude, Is.EqualTo(5f).Within(0.000001));
@@ -31,11 +31,11 @@ namespace GameBoost.Core.Tests
         public void Dot_SameDirection_ReturnsPositive()
         {
             // Arrange
-            var vector1 = new Vector2D(1, 0); // Points right
-            var vector2 = new Vector2D(1, 0); // Also points right
+            var vector1 = new Vector2D(1, 0, new MathUtils()); // Points right
+            var vector2 = new Vector2D(1, 0, new MathUtils()); // Also points right
 
             // Act
-            float result = Vector2D.Dot(vector1, vector2);
+            double result = vector1.Dot(vector2);
 
             // Assert
             Assert.That(result, Is.EqualTo(1)); // Dot product of (1,0) and (1,0) = 1 * 1 + 0 * 0 = 1
@@ -45,11 +45,11 @@ namespace GameBoost.Core.Tests
         public void Dot_OppositeDirection_ReturnsNegative()
         {
             // Arrange
-            var vector1 = new Vector2D(1, 0);  // Points right
-            var vector2 = new Vector2D(-1, 0); // Points left
+            var vector1 = new Vector2D(1, 0, new MathUtils());  // Points right
+            var vector2 = new Vector2D(-1, 0, new MathUtils()); // Points left
 
             // Act
-            float result = Vector2D.Dot(vector1, vector2);
+            double result = vector1.Dot( vector2);
 
             // Assert
             Assert.That(result, Is.EqualTo(-1)); // Dot product of (1,0) and (-1,0) = 1 * -1 + 0 * 0 = -1
@@ -59,11 +59,11 @@ namespace GameBoost.Core.Tests
         public void Dot_Perpendicular_ReturnsZero()
         {
             // Arrange
-            var vector1 = new Vector2D(1, 0);  // Points right
-            var vector2 = new Vector2D(0, 1);  // Points up
+            var vector1 = new Vector2D(1, 0, new MathUtils());  // Points right
+            var vector2 = new Vector2D(0, 1, new MathUtils());  // Points up
 
             // Act
-            float result = Vector2D.Dot(vector1, vector2);
+            double result = vector1.Dot( vector2);
 
             // Assert
             Assert.That(result, Is.EqualTo(0)); // Dot product of (1,0) and (0,1) = 1 * 0 + 0 * 1 = 0
@@ -73,11 +73,11 @@ namespace GameBoost.Core.Tests
         public void Dot_DifferentMagnitudes_SameDirection_ReturnsProductOfMagnitudes()
         {
             // Arrange
-            var vector1 = new Vector2D(2, 0); // Points right, magnitude 2
-            var vector2 = new Vector2D(3, 0); // Points right, magnitude 3
+            var vector1 = new Vector2D(2, 0, new MathUtils()); // Points right, magnitude 2
+            var vector2 = new Vector2D(3, 0, new MathUtils()); // Points right, magnitude 3
 
             // Act
-            float result = Vector2D.Dot(vector1, vector2);
+            double result = vector1.Dot(vector2);
 
             // Assert
             Assert.That(result, Is.EqualTo(6)); // Dot product of (2,0) and (3,0) = 2 * 3 + 0 * 0 = 6
@@ -87,12 +87,12 @@ namespace GameBoost.Core.Tests
         public void Dot_AngleBetween_ReturnsCosineRelatedValue()
         {
             // Arrange
-            var vector1 = new Vector2D(1, 0);  // Points right
-            var vector2 = new Vector2D(1, 1);  // Points at 45 degrees
+            var vector1 = new Vector2D(1, 0, new MathUtils());  // Points right
+            var vector2 = new Vector2D(1, 1, new MathUtils());  // Points at 45 degrees
             float expected = 1 * 1 + 0 * 1;    // Dot product of (1,0) and (1,1) = 1 * 1 + 0 * 1 = 1
 
             // Act
-            float result = Vector2D.Dot(vector1, vector2);
+            double result = vector1.Dot( vector2);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected)); // Exact dot product matches

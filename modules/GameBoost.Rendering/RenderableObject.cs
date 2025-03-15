@@ -7,10 +7,10 @@ namespace GameBoost.Rendering
     /// </summary>
     public class RenderableObject
     {
-        public Vector2D Position { get; set; }
+        public IVector2D Position { get; set; }
         public ITexture Texture { get; }
 
-        public RenderableObject(ITexture texture, Vector2D position)
+        public RenderableObject(ITexture texture, IVector2D position)
         {
             Texture = texture;
             Position = position;

@@ -7,7 +7,8 @@ namespace GameBoost.Rendering
     /// </summary>
     public struct Sprite
     {
-        public Vector2D Position { get; set; }
+        public IVector2D Position { get; set; }
+        private readonly IMathUtils _mathUtils;
         public float Width { get; set; }
         public float Height { get; set; }
         public float Rotation { get; set; } // In degrees
@@ -16,8 +17,9 @@ namespace GameBoost.Rendering
         /// <summary>
         /// Initializes a new Sprite with position, size, and texture.
         /// </summary>
-        public Sprite(Vector2D position, float width, float height, string textureId = "", float rotation = 0f)
+        public Sprite( IMathUtils mathUtils, IVector2D position, float width, float height, string textureId = "", float rotation = 0f)
         {
+            _mathUtils = mathUtils;
             Position = position;
             Width = width;
             Height = height;
@@ -31,7 +33,7 @@ namespace GameBoost.Rendering
         public Sprite Translate(Vector2D offset)
         {
             Sprite result = this;
-            result.Position += offset;
+            result.Position = result.Position.Add(offset);
             return result;
         }
 
@@ -43,6 +45,11 @@ namespace GameBoost.Rendering
             Sprite result = this;
             result.Rotation = (result.Rotation + angleDegrees) % 360f;
             return result;
+        }
+
+        public Vector2D Center()
+        {
+            return new Vector2D(this.Position.X + this.Width / 2f, this.Position.Y + this.Height / 2f, _mathUtils);
         }
 
         /// <summary>

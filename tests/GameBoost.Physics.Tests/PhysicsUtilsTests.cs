@@ -13,8 +13,8 @@ public class PhysicsUtilsTests
     [Test]
     public void ResolveCollision_NonColliding_ReturnsUnchanged()
     {
-        var body1 = new PhysicsBody(new Vector2D(0f, 0f), new Vector2D(1f, 0f), 1f, 1f, 1f);
-        var body2 = new PhysicsBody(new Vector2D(3f, 0f), new Vector2D(-1f, 0f), 1f, 1f, 1f);
+        var body1 = new PhysicsBody(new Vector2D(0f, 0f, new MathUtils()), new Vector2D(1f, 0f, new MathUtils()), 1f, 1f, 1f);
+        var body2 = new PhysicsBody(new Vector2D(3f, 0f, new MathUtils()), new Vector2D(-1f, 0f, new MathUtils()), 1f, 1f, 1f);
 
         var (result1, result2) = PhysicsUtils.ResolveCollision(body1, body2);
 
@@ -26,8 +26,8 @@ public class PhysicsUtilsTests
     [Test]
     public void ResolveCollision_Colliding_SwapsXVelocities()
     {
-        var body1 = new PhysicsBody(new Vector2D(0f, 0f), new Vector2D(1f, 2f), 1f, 2f, 2f);
-        var body2 = new PhysicsBody(new Vector2D(1f, 0f), new Vector2D(-1f, -2f), 1f, 2f, 2f);
+        var body1 = new PhysicsBody(new Vector2D(0f, 0f, new MathUtils()), new Vector2D(1f, 2f, new MathUtils()), 1f, 2f, 2f);
+        var body2 = new PhysicsBody(new Vector2D(1f, 0f, new MathUtils()), new Vector2D(-1f, -2f, new MathUtils()), 1f, 2f, 2f);
 
         var (result1, result2) = PhysicsUtils.ResolveCollision(body1, body2);
 
@@ -40,8 +40,8 @@ public class PhysicsUtilsTests
     [Test]
     public void ResolveCollision_Colliding_PreservesPosition()
     {
-        var body1 = new PhysicsBody(new Vector2D(0f, 0f), new Vector2D(1f, 0f), 1f, 2f, 2f);
-        var body2 = new PhysicsBody(new Vector2D(1f, 0f), new Vector2D(-1f, 0f), 1f, 2f, 2f);
+        var body1 = new PhysicsBody(new Vector2D(0f, 0f, new MathUtils()), new Vector2D(1f, 0f, new MathUtils()), 1f, 2f, 2f);
+        var body2 = new PhysicsBody(new Vector2D(1f, 0f, new MathUtils()), new Vector2D(-1f, 0f, new MathUtils()), 1f, 2f, 2f);
 
         var (result1, result2) = PhysicsUtils.ResolveCollision(body1, body2);
 

@@ -3,12 +3,13 @@ using GameBoost.Core;
 using GameBoost.Rendering;
 using TextureDemo;
 
-IScreen screen = new SfmlScreen(800, 600);
+IScreen screen = new SfmlScreen(800, 600, new MathUtils());
+IMathUtils mathUtils = new MathUtils();
 var context = new SfmlRenderContext((uint)screen.Width, (uint)screen.Height, "Texture Demo");
 
 // Load a texture (place a sample PNG in the project folder)
 var texture = new SfmlTexture("sample.png");
-var obj = new RenderableObject(texture, new Vector2D(100, 100));
+var obj = new RenderableObject(texture, new Vector2D(100, 100, mathUtils));
 
 // Main loop
 while (context.IsActive())

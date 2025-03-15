@@ -8,8 +8,8 @@ namespace GameBoost.Physics;
 /// </summary>
 public struct PhysicsBody
 {
-    public Vector2D Position { get; set; }
-    public Vector2D Velocity { get; set; }
+    public IVector2D Position { get; set; }
+    public IVector2D Velocity { get; set; }
     public float Mass { get; set; }
     public float Width { get; set; }
     public float Height { get; set; }
@@ -17,7 +17,7 @@ public struct PhysicsBody
     /// <summary>
     /// Initializes a new PhysicsBody with specified properties.
     /// </summary>
-    public PhysicsBody(Vector2D position, Vector2D velocity, float mass, float width, float height)
+    public PhysicsBody(IVector2D position, IVector2D velocity, float mass, float width, float height)
     {
         Position = position;
         Velocity = velocity;
@@ -29,14 +29,16 @@ public struct PhysicsBody
     /// <summary>
     /// Applies a velocity update based on time elapsed, including gravity.
     /// </summary>
-    public PhysicsBody Move(float deltaTime, float minX, float maxX, float minY, float maxY)
+    public PhysicsBody Move(double deltaTime, double minX, double maxX, double minY, double maxY)
     {
         PhysicsBody result = this;
-        Vector2D displacement = Velocity * deltaTime;
-        result.Position += displacement;
+        var utils = new MathUtils();
+        IVector2D displacement = Velocity.Multiply( deltaTime);
+        result.Position = result.Position.Add(displacement);
         result.Position = new Vector2D(
-            MathUtils.Clamp(result.Position.X, minX, maxX - result.Width), // 800 - 16 = 784
-            MathUtils.Clamp(result.Position.Y, minY, maxY - result.Height) // 600 - 64 = 536
+            utils.Clamp(result.Position.X, minX, maxX - result.Width), // 800 - 16 = 784
+            utils.Clamp(result.Position.Y, minY, maxY - result.Height) // 600 - 64 = 536
+            , utils
         );
         return result;
     }

@@ -6,6 +6,6 @@ namespace GameBoost.Rendering
     {
         float Width { get; }
         float Height { get; }
-        Vector2D ConvertWorldToScreen(Vector2D worldPosition); // Optional: For coordinate mapping
+        IVector2D ConvertWorldToScreen(IVector2D worldPosition); // Optional: For coordinate mapping
     }
 }

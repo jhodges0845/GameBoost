@@ -15,16 +15,16 @@ namespace TextureDemo
             _window.Closed += (sender, e) => _window.Close();
         }
 
-        public void Clear(float r, float g, float b, float a)
+        public void Clear(double r, double g, double b, double a)
         {
             _window.Clear(new Color((byte)(r * 255), (byte)(g * 255), (byte)(b * 255), (byte)(a * 255)));
         }
 
-        public void DrawTexture(GameBoost.Rendering.ITexture texture, float x, float y)
+        public void DrawTexture(GameBoost.Rendering.ITexture texture, double x, double y)
         {
             if (texture is SfmlTexture sfmlTexture)
             {
-                var sprite = new Sprite(sfmlTexture.Texture) { Position = new SFML.System.Vector2f(x, y) };
+                var sprite = new Sprite(sfmlTexture.Texture) { Position = new SFML.System.Vector2f((float)x, (float)y) };
                 _window.Draw(sprite);
             }
         }
